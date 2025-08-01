@@ -10,15 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Cleaning up feature
-        if: ${{ github.event.pull_request.merged }}
-        run: |
-          echo Cleaning...
-          echo ${{ github.ref }}
-          echo ${{ github.ref_name }}
-          echo ${{ github.event }}
-          echo ${{ github.event_name }}
-          echo ${{ github.event.pull_request.head.ref }}
-
-      - uses: actions/checkout@v3
-      - name: Cleaning up feature
         run: echo Cleaning, just closed PR...
