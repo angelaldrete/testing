@@ -5,6 +5,11 @@ on:
   push:
     branches:
       - feature/*
+  pull_request:
+    branches:
+      - dev
+      - master
+    types: [closed]
 
 jobs:
   test:
@@ -21,17 +26,30 @@ jobs:
       - name: Building
         run: |
           echo Building...
-          echo ${{ github.ref }}
-          echo ${{ github.event_name }}
-          echo ${{ github.event.pull_request.merged }}
 
   feature-deploy:
-    if: startsWith(github.ref, 'refs/heads/feature/')
+    if: ${{ !startsWith(github.ref, 'refs/heads/dev') }} || ${{ !startsWith(github.ref, 'refs/heads/master')}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Deploying
         run: |
           echo Deploying...
-          echo ${{ github.ref }}
-          echo ${{ github.event_name }}
+
+  staging-deploy:
+    if: startsWith(github.ref, 'refs/heads/dev')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploying to staging
+        run: echo Deploying to staging
+
+  production-deploy:
+    if: startsWith(github.ref, 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploying to production
+        run: echo Deploying to production
