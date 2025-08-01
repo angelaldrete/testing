@@ -1,0 +1,30 @@
+name: Deploy operations
+
+on:
+  push:
+    branches:
+      - feature/*
+      - master
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Running tests
+        run: echo "Running tests..."
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Building
+        run: echo "Building..."
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploying
+        run: echo 'Deploying...'
