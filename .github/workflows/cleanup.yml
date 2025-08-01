@@ -2,8 +2,6 @@ name: Cleanup operations
 
 on:
   pull_request:
-    branches:
-      - feature/*
     types: [closed]
 
 jobs:
