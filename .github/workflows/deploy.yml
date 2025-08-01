@@ -27,7 +27,7 @@ jobs:
       - name: Building
         run: echo "Building..."
 
-  deploy:
+  feature-deploy:
     if: startsWith(github.ref, 'refs/heads/feature/')
     runs-on: ubuntu-latest
     steps:
@@ -36,3 +36,7 @@ jobs:
         run: |
           echo Deploying...
           echo ${{ github.ref }}
+          echo ${{ github.event_name }}
+
+  # cleanup-feature:
+  #   if:
