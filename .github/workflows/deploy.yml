@@ -30,11 +30,6 @@ jobs:
       - name: Building
         run: |
           echo Building...
-          echo ${{ github.ref }}
-          echo ${{ github.ref_name }}
-          echo ${{ github.event }}
-          echo ${{ github.event_name }}
-          echo ${{ github.event.pull_request.head.ref }}
 
   feature-deploy:
     if: ${{ (!startsWith(github.ref, 'refs/heads/dev') && !startsWith(github.ref, 'refs/heads/master')) && github.event_name == 'push' }}
