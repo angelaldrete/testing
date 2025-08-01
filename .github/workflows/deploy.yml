@@ -7,7 +7,6 @@ on:
       - feature/*
   pull_request:
     branches:
-      - feature/*
       - master
       - dev
     types: [closed]
@@ -41,12 +40,3 @@ jobs:
           echo Deploying...
           echo ${{ github.ref }}
           echo ${{ github.event_name }}
-
-  cleanup-feature:
-    if: ${{ github.event.pull_request.merged }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Cleaning up feature
-        run: |
-          echo Cleaning...
