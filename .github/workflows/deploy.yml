@@ -28,6 +28,7 @@ jobs:
         run: echo "Building..."
 
   deploy:
+    if: startsWith(github.ref, 'refs/heads/feature/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
