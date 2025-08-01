@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - feature/*
+      - hotfix/*
+      - bugfix/*
+      - chore/*
+      - docs/*
   pull_request:
     branches:
       - dev
