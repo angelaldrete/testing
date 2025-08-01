@@ -1,11 +1,19 @@
 name: Deploy operations
+# Hello
 
 on:
   push:
     branches:
       - feature/*
-      - master
+      - hotfix/*
+      - bugfix/*
+      - chore/*
+      - docs/*
+  pull_request:
+    branches:
       - dev
+      - master
+    types: [closed]
 
 jobs:
   test:
@@ -20,11 +28,37 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Building
-        run: echo "Building..."
+        run: |
+          echo Building...
+          echo ${{ github.ref }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.event }}
+          echo ${{ github.event_name }}
+          echo ${{ github.event.pull_request.head.ref }}
 
-  deploy:
+  feature-deploy:
+    if: ${{ (!startsWith(github.ref, 'refs/heads/dev') && !startsWith(github.ref, 'refs/heads/master')) && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Deploying
-        run: echo 'Deploying...'
+        run: |
+          echo Deploying...
+
+  staging-deploy:
+    if: startsWith(github.ref, 'refs/heads/dev')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploying to staging
+        run: echo Deploying to staging
+
+  production-deploy:
+    if: startsWith(github.ref, 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploying to production
+        run: echo Deploying to production

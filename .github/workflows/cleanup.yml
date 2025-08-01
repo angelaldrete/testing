@@ -1,0 +1,13 @@
+name: Cleanup operations
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup-feature:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cleaning up feature
+        run: echo Cleaning, just closed PR...
