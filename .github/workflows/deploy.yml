@@ -29,6 +29,7 @@ jobs:
           echo Building...
           echo ${{ github.ref }}
           echo ${{ github.event_name }}
+          echo ${{ github.event.pull_request.merged }}
 
   feature-deploy:
     if: startsWith(github.ref, 'refs/heads/feature/')
@@ -41,5 +42,11 @@ jobs:
           echo ${{ github.ref }}
           echo ${{ github.event_name }}
 
-  # cleanup-feature:
-  #   if:
+  cleanup-feature:
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cleaning up feature
+        run: |
+          echo Cleaning...
